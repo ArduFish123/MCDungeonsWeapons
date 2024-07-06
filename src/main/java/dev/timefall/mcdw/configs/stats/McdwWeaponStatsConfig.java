@@ -16,8 +16,6 @@ import me.fzzyhmstrs.fzzy_config.config.Config;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.ApiStatus;
 
-import java.beans.Transient;
-import java.util.IdentityHashMap;
 import java.util.LinkedHashMap;
 import java.util.function.Supplier;
 

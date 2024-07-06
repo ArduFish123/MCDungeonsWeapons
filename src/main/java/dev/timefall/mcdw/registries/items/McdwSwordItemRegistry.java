@@ -27,7 +27,7 @@ public class McdwSwordItemRegistry {
     public static final Identifier SWORD_CLAYMORE_ID              = Mcdw.ID("sword_claymore");
     public static final Identifier SWORD_CORAL_BLADE_ID           = Mcdw.ID("sword_coral_blade");
     public static final Identifier SWORD_CUTLASS_ID               = Mcdw.ID("sword_cutlass");
-    public static final Identifier SWORD_DANCERS_SWORD_ID         = Mcdw.ID("sword_dancers_sword";
+    public static final Identifier SWORD_DANCERS_SWORD_ID         = Mcdw.ID("sword_dancers_sword");
     public static final Identifier SWORD_DARK_KATANA_ID           = Mcdw.ID("sword_dark_katana");
     public static final Identifier SWORD_DIAMOND_SWORD_VAR_ID     = Mcdw.ID("sword_diamond_sword_var");
     public static final Identifier SWORD_FREEZING_FOIL_ID         = Mcdw.ID("sword_freezing_foil");

@@ -59,7 +59,7 @@ dependencies {
 
     // Clumps
     //modImplementation "com.blamejared.clumps:Clumps-fabric-${project.minecraft_version}:${project.clumps_version}"
-    modImplementation "com.blamejared.clumps:Clumps-fabric-1.20.6:${project.clumps_version}"
+    modImplementation "com.blamejared.clumps:Clumps-fabric-1.21:${project.clumps_version}"
 
     // Ranged Weapon API
     //modImplementation "maven.modrinth:ranged-weapon-api:${project.ranged_weapon_api_version}"

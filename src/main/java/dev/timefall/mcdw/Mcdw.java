@@ -9,7 +9,7 @@ package dev.timefall.mcdw;
 import dev.timefall.mcdw.configs.CompatibilityFlags;
 import dev.timefall.mcdw.data.ConfigEnchantmentEnabledCondition;
 import dev.timefall.mcdw.data.ConfigItemEnabledCondition;
-import dev.timefall.mcdw.enchants.EnchantmentIds;
+import dev.timefall.mcdw.enchantment.EnchantmentIds;
 import dev.timefall.mcdw.registries.*;
 import dev.timefall.mcdw.registries.items.*;
 import net.fabricmc.api.ModInitializer;

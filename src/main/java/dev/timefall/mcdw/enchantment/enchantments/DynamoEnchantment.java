@@ -17,8 +17,8 @@ import net.minecraft.item.*;
 /*
  * Effects Needed:
  * ON_JUMP -> ComponentType<List<EnchantmentEffectEntry<EnchantmentEntityEffectType>>>
- * MultiplyStatusValueEffectType -> deal the damage
- * RemoveMobEffectEnchantmentEntityEffectType -> remove the status
+ * MultiplyStatusValueEffect -> deal the damage
+ * RemoveMobEffectEnchantmentEntityEffect -> remove the status
  */
 
 /*

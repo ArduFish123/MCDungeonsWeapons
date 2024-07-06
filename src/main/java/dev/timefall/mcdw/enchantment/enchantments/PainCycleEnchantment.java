@@ -28,10 +28,10 @@ import net.minecraft.item.SwordItem;
  *
  * POST_ATTACK -> to apply the pain cycle
  *    > EntityPropertiesLootCondition -> Check if pain cycle is below 5,
- *    > ApplyStackingMobEffectEnchantmentEntityEffectType > max 5 > damage event moved to the status itself
+ *    > ApplyStackingMobEffectEnchantmentEntityEffect > max 5 > damage event moved to the status itself
  * POST_ATTACK -> to remove the pain cycle
  *    > EntityPropertiesLootCondition -> Check if pain cycle is at stack 5
- *    > RemoveMobEffectEnchantmentEntityEffectType > remove pain cycle
+ *    > RemoveMobEffectEnchantmentEntityEffect > remove pain cycle
  */
 
 public class PainCycleEnchantment extends DamageBoostEnchantment {

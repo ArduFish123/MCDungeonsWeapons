@@ -4,6 +4,7 @@
   "compatibilityLevel": "JAVA_8",
   "plugin": "dev.timefall.mcdw.mixin.old_mixins.McdwMixinPlugin",
   "mixins": [
+    "BowItemMixin",
     "EnchantmentAccessor",
     "EnchantmentHelperAccessor",
     "EnchantmentHelperMixin",

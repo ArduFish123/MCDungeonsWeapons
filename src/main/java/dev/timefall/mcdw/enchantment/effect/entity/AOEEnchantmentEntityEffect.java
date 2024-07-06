@@ -4,15 +4,15 @@
  *
  * This software's content is licensed under the Timefall Development License 1.2. You can find this license information here: https://github.com/Timefall-Development/Timefall-Development-Licence/blob/main/TimefallDevelopmentLicense1.2.txt
  */
-package dev.timefall.mcdw.enchants.effect.entity;
+package dev.timefall.mcdw.enchantment.effect.entity;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.timefall.mcdw.mixin.LivingEntityAccessor;
 import net.minecraft.enchantment.EnchantmentEffectContext;
-import net.minecraft.enchantment.EnchantmentLevelBasedValueType;
-import net.minecraft.enchantment.effect.EnchantmentEntityEffectType;
+import net.minecraft.enchantment.EnchantmentLevelBasedValue;
+import net.minecraft.enchantment.effect.EnchantmentEntityEffect;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -24,19 +24,19 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-public record AOEEnchantmentEntityEffectType(EnchantmentLevelBasedValueType radius, EnchantmentEntityEffectType effect, Optional<EnchantmentLevelBasedValueType> targetLimit, boolean ignoreTargetEntity)implements EnchantmentEntityEffectType {
+public record AOEEnchantmentEntityEffect(EnchantmentLevelBasedValue radius, EnchantmentEntityEffect effect, Optional<EnchantmentLevelBasedValue> targetLimit, boolean ignoreTargetEntity)implements EnchantmentEntityEffect {
 
-    public AOEEnchantmentEntityEffectType(EnchantmentLevelBasedValueType radius, EnchantmentEntityEffectType effect){
+    public AOEEnchantmentEntityEffect(EnchantmentLevelBasedValue radius, EnchantmentEntityEffect effect){
         this(radius, effect, Optional.empty(), true);
     }
 
-    public static final MapCodec<AOEEnchantmentEntityEffectType> CODEC = RecordCodecBuilder.mapCodec(instance ->
+    public static final MapCodec<AOEEnchantmentEntityEffect> CODEC = RecordCodecBuilder.mapCodec(instance ->
                 instance.group(
-                    EnchantmentLevelBasedValueType.CODEC.fieldOf("radius").forGetter(AOEEnchantmentEntityEffectType::radius),
-                    EnchantmentEntityEffectType.CODEC.fieldOf("effect").forGetter(AOEEnchantmentEntityEffectType::effect),
-                    EnchantmentLevelBasedValueType.CODEC.optionalFieldOf("target_limit").forGetter(AOEEnchantmentEntityEffectType::targetLimit),
-                    Codec.BOOL.optionalFieldOf("ignore_target_entity", true).forGetter(AOEEnchantmentEntityEffectType::ignoreTargetEntity)
-                ).apply(instance, AOEEnchantmentEntityEffectType::new)
+                    EnchantmentLevelBasedValue.CODEC.fieldOf("radius").forGetter(AOEEnchantmentEntityEffect::radius),
+                    EnchantmentEntityEffect.CODEC.fieldOf("effect").forGetter(AOEEnchantmentEntityEffect::effect),
+                    EnchantmentLevelBasedValue.CODEC.optionalFieldOf("target_limit").forGetter(AOEEnchantmentEntityEffect::targetLimit),
+                    Codec.BOOL.optionalFieldOf("ignore_target_entity", true).forGetter(AOEEnchantmentEntityEffect::ignoreTargetEntity)
+                ).apply(instance, AOEEnchantmentEntityEffect::new)
             );
 
     @Override
@@ -78,7 +78,7 @@ public record AOEEnchantmentEntityEffectType(EnchantmentLevelBasedValueType radi
     }
 
     @Override
-    public MapCodec<? extends EnchantmentEntityEffectType> getCodec() {
+    public MapCodec<? extends EnchantmentEntityEffect> getCodec() {
         return CODEC;
     }
 }

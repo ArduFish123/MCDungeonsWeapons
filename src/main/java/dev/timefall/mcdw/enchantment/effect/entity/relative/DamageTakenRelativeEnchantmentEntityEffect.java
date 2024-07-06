@@ -4,14 +4,14 @@
  *
  * This software's content is licensed under the Timefall Development License 1.2. You can find this license information here: https://github.com/Timefall-Development/Timefall-Development-Licence/blob/main/TimefallDevelopmentLicense1.2.txt
  */
-package dev.timefall.mcdw.enchants.effect.entity.relative;
+package dev.timefall.mcdw.enchantment.effect.entity.relative;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import dev.timefall.mcdw.enchants.effect.entity.RelativeEnchantmentEntityEffectType;
+import dev.timefall.mcdw.enchantment.effect.entity.RelativeEnchantmentEntityEffectType;
 import dev.timefall.mcdw.mixin.LivingEntityAccessor;
 import net.minecraft.enchantment.EnchantmentEffectContext;
-import net.minecraft.enchantment.EnchantmentLevelBasedValueType;
+import net.minecraft.enchantment.EnchantmentLevelBasedValue;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
@@ -20,14 +20,14 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.Vec3d;
 
-public record DamageTakenRelativeEnchantmentEntityEffectType(EnchantmentLevelBasedValueType factor, RegistryEntry<DamageType> damageType) implements RelativeEnchantmentEntityEffectType
+public record DamageTakenRelativeEnchantmentEntityEffect(EnchantmentLevelBasedValue factor, RegistryEntry<DamageType> damageType) implements RelativeEnchantmentEntityEffectType
 {
 
-    public static final MapCodec<DamageTakenRelativeEnchantmentEntityEffectType> CODEC = RecordCodecBuilder.mapCodec(instance ->
+    public static final MapCodec<DamageTakenRelativeEnchantmentEntityEffect> CODEC = RecordCodecBuilder.mapCodec(instance ->
                 instance.group(
-                    EnchantmentLevelBasedValueType.CODEC.fieldOf("factor").forGetter(DamageTakenRelativeEnchantmentEntityEffectType::factor),
-                    DamageType.ENTRY_CODEC.fieldOf("damage_type").forGetter(DamageTakenRelativeEnchantmentEntityEffectType::damageType)
-                ).apply(instance, DamageTakenRelativeEnchantmentEntityEffectType::new)
+                    EnchantmentLevelBasedValue.CODEC.fieldOf("factor").forGetter(DamageTakenRelativeEnchantmentEntityEffect::factor),
+                    DamageType.ENTRY_CODEC.fieldOf("damage_type").forGetter(DamageTakenRelativeEnchantmentEntityEffect::damageType)
+                ).apply(instance, DamageTakenRelativeEnchantmentEntityEffect::new)
             );
 
     @Override

@@ -4,14 +4,14 @@
  *
  * This software's content is licensed under the Timefall Development License 1.2. You can find this license information here: https://github.com/Timefall-Development/Timefall-Development-Licence/blob/main/TimefallDevelopmentLicense1.2.txt
  */
-package dev.timefall.mcdw.enchants.effect.entity;
+package dev.timefall.mcdw.enchantment.effect.entity;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.enchantment.EnchantmentEffectContext;
-import net.minecraft.enchantment.EnchantmentLevelBasedValueType;
-import net.minecraft.enchantment.effect.EnchantmentEntityEffectType;
+import net.minecraft.enchantment.EnchantmentLevelBasedValue;
+import net.minecraft.enchantment.effect.EnchantmentEntityEffect;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
@@ -26,30 +26,30 @@ import net.minecraft.util.math.random.Random;
 
 import java.util.Optional;
 
-public record ApplyStackingMobEffectEnchantmentEntityEffectType(
+public record ApplyStackingMobEffectEnchantmentEntityEffect(
         RegistryEntryList<StatusEffect> toApply,
-        EnchantmentLevelBasedValueType duration,
-        EnchantmentLevelBasedValueType startingAmplifier,
-        EnchantmentLevelBasedValueType maxAmplifier,
-        boolean popIfMaxed)implements EnchantmentEntityEffectType
+        EnchantmentLevelBasedValue duration,
+        EnchantmentLevelBasedValue startingAmplifier,
+        EnchantmentLevelBasedValue maxAmplifier,
+        boolean popIfMaxed)implements EnchantmentEntityEffect
 {
 
-    public ApplyStackingMobEffectEnchantmentEntityEffectType(
+    public ApplyStackingMobEffectEnchantmentEntityEffect(
             RegistryEntry<StatusEffect> toApply,
-            EnchantmentLevelBasedValueType duration,
-            EnchantmentLevelBasedValueType maxAmplifier)
+            EnchantmentLevelBasedValue duration,
+            EnchantmentLevelBasedValue maxAmplifier)
     {
-        this(RegistryEntryList.of(toApply), duration, EnchantmentLevelBasedValueType.constant(0f), maxAmplifier, false);
+        this(RegistryEntryList.of(toApply), duration, EnchantmentLevelBasedValue.constant(0f), maxAmplifier, false);
     }
 
-    public static final MapCodec<ApplyStackingMobEffectEnchantmentEntityEffectType> CODEC = RecordCodecBuilder.mapCodec(instance ->
+    public static final MapCodec<ApplyStackingMobEffectEnchantmentEntityEffect> CODEC = RecordCodecBuilder.mapCodec(instance ->
                 instance.group(
-                        RegistryCodecs.entryList(RegistryKeys.STATUS_EFFECT).fieldOf("to_apply").forGetter(ApplyStackingMobEffectEnchantmentEntityEffectType::toApply),
-                        EnchantmentLevelBasedValueType.CODEC.fieldOf("duration").forGetter(ApplyStackingMobEffectEnchantmentEntityEffectType::duration),
-                        EnchantmentLevelBasedValueType.CODEC.optionalFieldOf("starting_amplifier", new EnchantmentLevelBasedValueType.Constant(0f)).forGetter(ApplyStackingMobEffectEnchantmentEntityEffectType::startingAmplifier),
-                        EnchantmentLevelBasedValueType.CODEC.fieldOf("max_amplifier").forGetter(ApplyStackingMobEffectEnchantmentEntityEffectType::maxAmplifier),
-                        Codec.BOOL.optionalFieldOf("pop_if_maxed",false).forGetter(ApplyStackingMobEffectEnchantmentEntityEffectType::popIfMaxed)
-                ).apply(instance, ApplyStackingMobEffectEnchantmentEntityEffectType::new)
+                        RegistryCodecs.entryList(RegistryKeys.STATUS_EFFECT).fieldOf("to_apply").forGetter(ApplyStackingMobEffectEnchantmentEntityEffect::toApply),
+                        EnchantmentLevelBasedValue.CODEC.fieldOf("duration").forGetter(ApplyStackingMobEffectEnchantmentEntityEffect::duration),
+                        EnchantmentLevelBasedValue.CODEC.optionalFieldOf("starting_amplifier", new EnchantmentLevelBasedValue.Constant(0f)).forGetter(ApplyStackingMobEffectEnchantmentEntityEffect::startingAmplifier),
+                        EnchantmentLevelBasedValue.CODEC.fieldOf("max_amplifier").forGetter(ApplyStackingMobEffectEnchantmentEntityEffect::maxAmplifier),
+                        Codec.BOOL.optionalFieldOf("pop_if_maxed",false).forGetter(ApplyStackingMobEffectEnchantmentEntityEffect::popIfMaxed)
+                ).apply(instance, ApplyStackingMobEffectEnchantmentEntityEffect::new)
             );
 
     @Override
@@ -72,7 +72,7 @@ public record ApplyStackingMobEffectEnchantmentEntityEffectType(
     }
 
     @Override
-    public MapCodec<? extends EnchantmentEntityEffectType> getCodec() {
+    public MapCodec<? extends EnchantmentEntityEffect> getCodec() {
         return CODEC;
     }
 }

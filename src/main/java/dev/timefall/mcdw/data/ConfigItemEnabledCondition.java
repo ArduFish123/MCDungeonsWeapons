@@ -10,7 +10,6 @@ package dev.timefall.mcdw.data;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.timefall.mcdw.Mcdw;
-import dev.timefall.mcdw.configs.McdwEnchantmentSettingsConfig;
 import dev.timefall.mcdw.configs.stats.McdwWeaponStatsConfig;
 import net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition;
 import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditionType;

@@ -4,12 +4,11 @@
  *
  * This software's content is licensed under the Timefall Development License 1.2. You can find this license information here: https://github.com/Timefall-Development/Timefall-Development-Licence/blob/main/TimefallDevelopmentLicense1.2.txt
  */
-package dev.timefall.mcdw.enchants.effect.entity.relative;
+package dev.timefall.mcdw.enchantment.effect.entity.relative;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import dev.timefall.mcdw.enchants.effect.entity.RelativeEnchantmentEntityEffectType;
-import dev.timefall.mcdw.mixin.LivingEntityAccessor;
+import dev.timefall.mcdw.enchantment.effect.entity.RelativeEnchantmentEntityEffectType;
 import net.minecraft.enchantment.EnchantmentEffectContext;
 import net.minecraft.enchantment.EnchantmentLevelBasedValueType;
 import net.minecraft.entity.Entity;

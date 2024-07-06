@@ -8,8 +8,8 @@ package dev.timefall.mcdw.registries;
 
 import dev.timefall.mcdw.Mcdw;
 import dev.timefall.mcdw.registries.items.McdwLongbowItemRegistry;
-import dev.timefall.mcdw.registries.items.McdwSwordItemRegistry;
 import dev.timefall.mcdw.registries.items.McdwShieldItemRegistry;
+import dev.timefall.mcdw.registries.items.McdwSwordItemRegistry;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;

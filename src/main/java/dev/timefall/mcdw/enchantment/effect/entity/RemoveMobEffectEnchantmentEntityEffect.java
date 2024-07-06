@@ -4,13 +4,13 @@
  *
  * This software's content is licensed under the Timefall Development License 1.2. You can find this license information here: https://github.com/Timefall-Development/Timefall-Development-Licence/blob/main/TimefallDevelopmentLicense1.2.txt
  */
-package dev.timefall.mcdw.enchants.effect.entity;
+package dev.timefall.mcdw.enchantment.effect.entity;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.enchantment.EnchantmentEffectContext;
-import net.minecraft.enchantment.effect.EnchantmentEntityEffectType;
+import net.minecraft.enchantment.effect.EnchantmentEntityEffect;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
@@ -24,17 +24,17 @@ import net.minecraft.util.math.random.Random;
 
 import java.util.Optional;
 
-public record RemoveMobEffectEnchantmentEntityEffectType(RegistryEntryList<StatusEffect> toRemove, boolean removeAll)implements EnchantmentEntityEffectType {
+public record RemoveMobEffectEnchantmentEntityEffect(RegistryEntryList<StatusEffect> toRemove, boolean removeAll) implements EnchantmentEntityEffect {
 
-    public RemoveMobEffectEnchantmentEntityEffectType(RegistryEntry<StatusEffect> effect){
+    public RemoveMobEffectEnchantmentEntityEffect(RegistryEntry<StatusEffect> effect){
         this(RegistryEntryList.of(effect), true);
     }
 
-    public static final MapCodec<RemoveMobEffectEnchantmentEntityEffectType> CODEC = RecordCodecBuilder.mapCodec(instance ->
+    public static final MapCodec<RemoveMobEffectEnchantmentEntityEffect> CODEC = RecordCodecBuilder.mapCodec(instance ->
                 instance.group(
-                    RegistryCodecs.entryList(RegistryKeys.STATUS_EFFECT).fieldOf("to_remove").forGetter(RemoveMobEffectEnchantmentEntityEffectType::toRemove),
-                        Codec.BOOL.optionalFieldOf("remove_all", true).forGetter(RemoveMobEffectEnchantmentEntityEffectType::removeAll)
-                ).apply(instance, RemoveMobEffectEnchantmentEntityEffectType::new)
+                    RegistryCodecs.entryList(RegistryKeys.STATUS_EFFECT).fieldOf("to_remove").forGetter(RemoveMobEffectEnchantmentEntityEffect::toRemove),
+                        Codec.BOOL.optionalFieldOf("remove_all", true).forGetter(RemoveMobEffectEnchantmentEntityEffect::removeAll)
+                ).apply(instance, RemoveMobEffectEnchantmentEntityEffect::new)
             );
 
     @Override
@@ -55,7 +55,7 @@ public record RemoveMobEffectEnchantmentEntityEffectType(RegistryEntryList<Statu
     }
 
     @Override
-    public MapCodec<? extends EnchantmentEntityEffectType> getCodec() {
+    public MapCodec<? extends EnchantmentEntityEffect> getCodec() {
         return CODEC;
     }
 }

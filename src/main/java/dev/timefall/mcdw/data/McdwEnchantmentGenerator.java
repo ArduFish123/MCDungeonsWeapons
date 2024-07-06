@@ -8,10 +8,13 @@
 package dev.timefall.mcdw.data;
 
 import dev.timefall.mcdw.component.McdwEffectComponentTypes;
-import dev.timefall.mcdw.enchants.EnchantmentIds;
-import dev.timefall.mcdw.enchants.effect.entity.relative.DamageTakenRelativeEnchantmentEntityEffectType;
-import dev.timefall.mcdw.enchants.effect.entity_aware.MultiplyStatusValueEffectType;
-import dev.timefall.mcdw.enchants.effect.entity.*;
+import dev.timefall.mcdw.enchantment.EnchantmentIds;
+import dev.timefall.mcdw.enchantment.effect.entity.AOEEnchantmentEntityEffect;
+import dev.timefall.mcdw.enchantment.effect.entity.ApplyStackingMobEffectEnchantmentEntityEffect;
+import dev.timefall.mcdw.enchantment.effect.entity.LeechMobEnchantmentEntityEffect;
+import dev.timefall.mcdw.enchantment.effect.entity.RemoveMobEffectEnchantmentEntityEffect;
+import dev.timefall.mcdw.enchantment.effect.entity.relative.DamageTakenRelativeEnchantmentEntityEffect;
+import dev.timefall.mcdw.enchantment.effect.entity_aware.MultiplyStatusValueEffect;
 import dev.timefall.mcdw.registries.SoundEventsRegistry;
 import dev.timefall.mcdw.registries.StatusEffectsRegistry;
 import dev.timefall.mcdw.registries.tag.McdwEnchantmentTags;
@@ -22,12 +25,12 @@ import net.minecraft.block.Block;
 import net.minecraft.component.EnchantmentEffectComponentTypes;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentLevelBasedValueType;
-import net.minecraft.enchantment.effect.AllOfEnchantmentEffectTypes;
+import net.minecraft.enchantment.EnchantmentLevelBasedValue;
+import net.minecraft.enchantment.effect.AllOfEnchantmentEffects;
 import net.minecraft.enchantment.effect.EnchantmentEffectTarget;
-import net.minecraft.enchantment.effect.entity.PlaySoundEnchantmentEffectType;
-import net.minecraft.enchantment.effect.value.AddEnchantmentEffectType;
-import net.minecraft.enchantment.effect.value.MultiplyEnchantmentEffectType;
+import net.minecraft.enchantment.effect.entity.PlaySoundEnchantmentEffect;
+import net.minecraft.enchantment.effect.value.AddEnchantmentEffect;
+import net.minecraft.enchantment.effect.value.MultiplyEnchantmentEffect;
 import net.minecraft.entity.damage.DamageType;
 import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.item.Item;
@@ -38,7 +41,10 @@ import net.minecraft.loot.context.LootContext;
 import net.minecraft.predicate.NumberRange;
 import net.minecraft.predicate.entity.EntityEffectPredicate;
 import net.minecraft.predicate.entity.EntityPredicate;
-import net.minecraft.registry.*;
+import net.minecraft.registry.RegistryEntryLookup;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.entry.RegistryEntryList;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.util.math.floatprovider.ConstantFloatProvider;
@@ -65,6 +71,8 @@ public class McdwEnchantmentGenerator extends FabricDynamicRegistryProvider {
         RegistryEntryLookup<Item> itemLookup = registries.getWrapperOrThrow(RegistryKeys.ITEM);
         RegistryEntryLookup<Block> blockLookup = registries.getWrapperOrThrow(RegistryKeys.BLOCK);
 
+
+
         // DYNAMO
         register(
             entries,
@@ -83,19 +91,19 @@ public class McdwEnchantmentGenerator extends FabricDynamicRegistryProvider {
                 enchantmentLookup.getOrThrow(McdwEnchantmentTags.DAMAGE_EXCLUSIVE)
             ).addEffect(
                 McdwEffectComponentTypes.ENTITY_AWARE_DAMAGE,
-                new MultiplyStatusValueEffectType(StatusEffectsRegistry.DYNAMO, EnchantmentLevelBasedValueType.linear(0.1f,0.025f),false,Optional.empty())
+                new MultiplyStatusValueEffect(StatusEffectsRegistry.DYNAMO, EnchantmentLevelBasedValue.linear(0.1f,0.025f),false,Optional.empty())
             ).addEffect(
                 McdwEffectComponentTypes.ON_JUMP,
-                new ApplyStackingMobEffectEnchantmentEntityEffectType(
+                new ApplyStackingMobEffectEnchantmentEntityEffect(
                     StatusEffectsRegistry.DYNAMO,
-                    EnchantmentLevelBasedValueType.constant(120000f),
-                    EnchantmentLevelBasedValueType.constant(19f)
+                    EnchantmentLevelBasedValue.constant(120000f),
+                    EnchantmentLevelBasedValue.constant(19f)
                 )
             ).addEffect(
                 EnchantmentEffectComponentTypes.POST_ATTACK,
                 EnchantmentEffectTarget.ATTACKER,
                 EnchantmentEffectTarget.ATTACKER,
-                new RemoveMobEffectEnchantmentEntityEffectType(StatusEffectsRegistry.DYNAMO)
+                new RemoveMobEffectEnchantmentEntityEffect(StatusEffectsRegistry.DYNAMO)
             )
         );
 
@@ -119,24 +127,25 @@ public class McdwEnchantmentGenerator extends FabricDynamicRegistryProvider {
                         EnchantmentEffectComponentTypes.POST_ATTACK,
                         EnchantmentEffectTarget.ATTACKER,
                         EnchantmentEffectTarget.VICTIM,
-                        AllOfEnchantmentEffectTypes.allOf(
-                            new PlaySoundEnchantmentEffectType(
+                        AllOfEnchantmentEffects.allOf(
+                            new PlaySoundEnchantmentEffect(
                                 SoundEventsRegistry.ECHO_SOUND_EVENT,
                                 ConstantFloatProvider.create(0.5f),
                                 ConstantFloatProvider.create(1f)
                             ),
-                            new AOEEnchantmentEntityEffectType(
-                                EnchantmentLevelBasedValueType.constant(3f),
-                                new DamageTakenRelativeEnchantmentEntityEffectType(
-                                    EnchantmentLevelBasedValueType.constant(1f),
+                            new AOEEnchantmentEntityEffect(
+                                EnchantmentLevelBasedValue.constant(3f),
+                                new DamageTakenRelativeEnchantmentEntityEffect(
+                                    EnchantmentLevelBasedValue.constant(1f),
                                     damageTypeLookup.getOrThrow(DamageTypes.GENERIC)
                                 ),
-                                Optional.of(EnchantmentLevelBasedValueType.linear(1f)),
+                                Optional.of(EnchantmentLevelBasedValue.linear(1f)),
                                 true
                             )
                         ),
                         () -> new RandomChanceWithEnchantedBonusLootCondition(
-                            EnchantmentLevelBasedValueType.linear(0.15f),
+                            0f,
+                            EnchantmentLevelBasedValue.linear(0.15f),
                             enchantmentLookup.getOrThrow(EnchantmentIds.ECHO)
                         )
                 )
@@ -162,7 +171,7 @@ public class McdwEnchantmentGenerator extends FabricDynamicRegistryProvider {
                     McdwEffectComponentTypes.POST_DEATH,
                     EnchantmentEffectTarget.ATTACKER,
                     EnchantmentEffectTarget.VICTIM,
-                    new LeechMobEnchantmentEntityEffectType(EnchantmentLevelBasedValueType.linear(0.4f, 0.2f))
+                    new LeechMobEnchantmentEntityEffect(EnchantmentLevelBasedValue.linear(0.4f, 0.2f))
                 )
         );
 
@@ -184,7 +193,7 @@ public class McdwEnchantmentGenerator extends FabricDynamicRegistryProvider {
                     enchantmentLookup.getOrThrow(McdwEnchantmentTags.DAMAGE_EXCLUSIVE)
                 ).addEffect(
                     EnchantmentEffectComponentTypes.DAMAGE,
-                    new MultiplyEnchantmentEffectType(EnchantmentLevelBasedValueType.linear(2f,1f)),
+                    new MultiplyEnchantmentEffect(EnchantmentLevelBasedValue.linear(2f,1f)),
                     EntityPropertiesLootCondition.builder(
                         LootContext.EntityTarget.ATTACKER,
                         EntityPredicate.Builder.create().effects(
@@ -203,11 +212,11 @@ public class McdwEnchantmentGenerator extends FabricDynamicRegistryProvider {
                     EnchantmentEffectComponentTypes.POST_ATTACK,
                     EnchantmentEffectTarget.ATTACKER,
                     EnchantmentEffectTarget.ATTACKER,
-                    new ApplyStackingMobEffectEnchantmentEntityEffectType(
+                    new ApplyStackingMobEffectEnchantmentEntityEffect(
                         RegistryEntryList.of(StatusEffectsRegistry.PAIN_CYCLE),
-                        EnchantmentLevelBasedValueType.constant(120000f),
-                        EnchantmentLevelBasedValueType.constant(0f),
-                        EnchantmentLevelBasedValueType.constant(4f),
+                        EnchantmentLevelBasedValue.constant(120000f),
+                        EnchantmentLevelBasedValue.constant(0f),
+                        EnchantmentLevelBasedValue.constant(4f),
                         true
                     )
                 )
@@ -248,7 +257,7 @@ public class McdwEnchantmentGenerator extends FabricDynamicRegistryProvider {
                 //the Mob Experience modification hook.
                 EnchantmentEffectComponentTypes.MOB_EXPERIENCE,
                 //we will multiply the drops by 1 + (level / 3.0), which is the same as "1.33333 + 0.33333 for each level beyond the first".
-                new MultiplyEnchantmentEffectType(EnchantmentLevelBasedValueType.linear(1.33333f, 0.33333f))
+                new MultiplyEnchantmentEffect(EnchantmentLevelBasedValue.linear(1.33333f, 0.33333f))
             )
         );
 
@@ -270,7 +279,7 @@ public class McdwEnchantmentGenerator extends FabricDynamicRegistryProvider {
                     enchantmentLookup.getOrThrow(McdwEnchantmentTags.EXPERIENCE_EXCLUSIVE)
                 ).addEffect(
                     EnchantmentEffectComponentTypes.MOB_EXPERIENCE,
-                    new AddEnchantmentEffectType(EnchantmentLevelBasedValueType.linear(3f)),
+                    new AddEnchantmentEffect(EnchantmentLevelBasedValue.linear(3f)),
                     //this addition happens 10% of the time
                     RandomChanceLootCondition.builder(0.1f)
                 )

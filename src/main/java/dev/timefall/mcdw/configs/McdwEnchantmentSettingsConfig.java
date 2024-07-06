@@ -8,7 +8,7 @@
 package dev.timefall.mcdw.configs;
 
 import dev.timefall.mcdw.Mcdw;
-import dev.timefall.mcdw.enchants.EnchantmentIds;
+import dev.timefall.mcdw.enchantment.EnchantmentIds;
 import me.fzzyhmstrs.fzzy_config.annotations.IgnoreVisibility;
 import me.fzzyhmstrs.fzzy_config.api.ConfigApi;
 import me.fzzyhmstrs.fzzy_config.config.Config;

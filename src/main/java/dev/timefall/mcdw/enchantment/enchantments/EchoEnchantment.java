@@ -15,7 +15,7 @@ import net.minecraft.item.SwordItem;
 
 /*
  * Effects Needed:
- * AOEEnchantmentEntityEffectType
+ * AOEEnchantmentEntityEffect
  */
 
 /*

@@ -6,18 +6,19 @@
  */
 package dev.timefall.mcdw.bases;
 
+import dev.timefall.mcdw.api.interfaces.IMcdwDrawSpeed;
 import dev.timefall.mcdw.api.util.CleanlinessHelper;
 import dev.timefall.mcdw.configs.stats.IMcdwWeaponStats;
 import dev.timefall.mcdw.registries.ItemGroupRegistry;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.client.item.TooltipType;
 import net.minecraft.component.type.ChargedProjectilesComponent;
 import net.minecraft.item.*;
+import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.Text;
 
 import java.util.List;
 
-public class McdwCrossbowItem extends CrossbowItem {
+public class McdwCrossbowItem extends CrossbowItem implements IMcdwDrawSpeed {
 
     private final ToolMaterial material;
     IMcdwWeaponStats.RangedStats itemStats;
@@ -53,7 +54,8 @@ public class McdwCrossbowItem extends CrossbowItem {
         return itemStats.repairIngredient.toIngredient().test(ingredient);
     }
 
-    public int getDrawSpeed() {
+    @Override
+    public float getDrawSpeed() {
         return this.drawSpeed;
     }
 

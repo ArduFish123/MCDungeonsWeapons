@@ -7,6 +7,7 @@
 package dev.timefall.mcdw.mixin;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.component.ComponentMap;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.effect.EnchantmentEffectEntry;
 import net.minecraft.entity.Entity;
@@ -15,6 +16,7 @@ import net.minecraft.loot.context.LootContext;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
 import java.util.List;
@@ -46,4 +48,7 @@ public interface EnchantmentAccessor {
     static LootContext callCreateEnchantedItemLootContext(ServerWorld world, int level, ItemStack stack) {
         throw new UnsupportedOperationException();
     }
+
+    @Accessor
+    ComponentMap getEffects();
 }

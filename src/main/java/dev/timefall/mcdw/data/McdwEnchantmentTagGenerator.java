@@ -7,7 +7,7 @@
 
 package dev.timefall.mcdw.data;
 
-import dev.timefall.mcdw.enchants.EnchantmentIds;
+import dev.timefall.mcdw.enchantment.EnchantmentIds;
 import dev.timefall.mcdw.registries.tag.McdwEnchantmentTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;

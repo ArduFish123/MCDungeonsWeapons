@@ -7,12 +7,13 @@
  */
 package dev.timefall.mcdw.bases;
 
+import dev.timefall.mcdw.api.interfaces.IMcdwDrawSpeed;
 import dev.timefall.mcdw.api.util.CleanlinessHelper;
 import dev.timefall.mcdw.configs.stats.IMcdwWeaponStats;
 import dev.timefall.mcdw.registries.ItemGroupRegistry;
 import dev.timefall.mcdw.registries.items.McdwBowItemRegistry;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.client.item.TooltipType;
+import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.item.BowItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -26,7 +27,7 @@ import java.util.List;
 import static dev.timefall.mcdw.api.util.RangedAttackHelper.getVanillaBowChargeTime;
 
 @SuppressWarnings("UnusedAssignment")
-public class McdwBowItem extends BowItem {
+public class McdwBowItem extends BowItem implements IMcdwDrawSpeed {
 
     private final ToolMaterial material;
     IMcdwWeaponStats.RangedStats itemStats;
@@ -46,6 +47,7 @@ public class McdwBowItem extends BowItem {
         ItemGroupEvents.modifyEntriesEvent(ItemGroupRegistry.RANGED).register(entries -> entries.add(this.getDefaultStack()));
     }
 
+    @Override
     public float getDrawSpeed() {
         return Math.max(0, drawSpeed);
     }

@@ -7,11 +7,12 @@
  */
 package dev.timefall.mcdw.bases;
 
+import dev.timefall.mcdw.api.interfaces.IMcdwDrawSpeed;
 import dev.timefall.mcdw.api.util.CleanlinessHelper;
 import dev.timefall.mcdw.configs.stats.IMcdwWeaponStats;
 import dev.timefall.mcdw.registries.ItemGroupRegistry;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.client.item.TooltipType;
+import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.item.BowItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -22,7 +23,7 @@ import net.minecraft.text.Text;
 import java.util.List;
 
 // TODO Question: Should this extend BowItem or McdwBowItem?
-public class McdwShortbowItem extends BowItem {
+public class McdwShortbowItem extends BowItem implements IMcdwDrawSpeed {
 
     private final ToolMaterial material;
     IMcdwWeaponStats.RangedStats itemStats;
@@ -42,6 +43,7 @@ public class McdwShortbowItem extends BowItem {
         ItemGroupEvents.modifyEntriesEvent(ItemGroupRegistry.RANGED).register(entries -> entries.add(this.getDefaultStack()));
     }
 
+    @Override
     public float getDrawSpeed() {
         return Math.max(0, drawSpeed);
     }

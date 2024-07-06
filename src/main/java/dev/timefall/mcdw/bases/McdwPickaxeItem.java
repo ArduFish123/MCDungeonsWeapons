@@ -10,7 +10,7 @@ import dev.timefall.mcdw.api.util.CleanlinessHelper;
 import dev.timefall.mcdw.configs.stats.IMcdwWeaponStats;
 import dev.timefall.mcdw.registries.ItemGroupRegistry;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.client.item.TooltipType;
+import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.PickaxeItem;
